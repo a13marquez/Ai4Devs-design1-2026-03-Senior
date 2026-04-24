@@ -1,340 +1,505 @@
-# LTI-AMJ: Learning Tools Interoperability Platform v1
+# ATS LTI v1
 
-**Version:** 1.0  
-**Date:** 2026-04-13  
-**Status:** Architecture Specification Document
+# Documentación Base: LTI-ATS (Applicant Tracking System)
 
----
-
-## 1. Product Overview
-
-LTI-AMJ (Advanced Learning Tools Interoperability) is a next-generation LTI-compliant platform designed to provide seamless integration between external learning tools and Learning Management Systems (LMS) such as Canvas, Moodle, and Blackboard.
-
-### Added Value for the EdTech Ecosystem
-
-- **Unified Integration Framework:** Single API surface for connecting diverse learning tools across multiple LMS platforms
-- **Standardized Data Exchange:** Full compliance with 1EdTech LTI Advantage specification
-- **Enhanced Security:** OAuth2/OIDC based authentication with JWT token validation
-- **Real-time Analytics:** Built-in usage tracking and learning outcome metrics
-
-### Competitive Advantages
-
-| Advantage | Description |
-|-----------|-------------|
-| Security | Platform-level OAuth2/OIDC flow with nonce validation and signature verification |
-| Ease of Integration | Pre-built launch handlers and standardized registration workflows |
-| Data Analytics | Native Grade Passback, Deep Linking, and Names and Roles Provisioning Services |
-| Scalability | Cloud-native microservices architecture with horizontal scaling |
-| Compliance | Full LTI 1.3 / LTI Advantage support |
+**Empresa:** LTI  
+**Responsable:** CEO - División de Estrategia de Talento  
+**Objetivo:** Definición funcional para el desarrollo de software
 
 ---
 
-## 2. Core Functionality
+## 1. Descripción del Sistema
+El **LTI-ATS** es una plataforma integral de gestión de talento diseñada para transformar el reclutamiento reactivo en una estrategia de adquisición de talento proactiva. El sistema centraliza todo el flujo de trabajo, desde la detección de la necesidad de una vacante hasta la firma del contrato, integrando herramientas de comunicación, evaluación y análisis de datos en una única interfaz.
 
-### LTI Advantage Support
+## 2. Valor Añadido
+El valor de este software no reside en el almacenamiento de datos, sino en la **optimización operativa**:
 
-LTI-AMJ implements all three LTI Advantage services:
+* **Reducción de carga administrativa:** Automatización de la criba curricular (screening) mediante criterios predefinidos y flujos de trabajo programables.
+* **Colaboración Síncrona:** Permite que los *Hiring Managers* y el equipo de RR. HH. compartan feedback, califiquen candidatos y tomen decisiones en tiempo real, eliminando los hilos de correos interminables.
+* **Mejora de la Marca Empleadora (Employer Branding):** Comunicación automática y personalizada con el candidato en cada etapa, garantizando una experiencia profesional independientemente del resultado del proceso.
 
-1. **Assignment and Grade Services (AGS):** Enables reading, creating, and updating line items and scores
-2. **Names and Role Provisioning Services (NRPS):** Provides membership data sync between LMS and tools
-3. **Deep Linking (DL):** Allows instructors to select and configure content from external tools
+## 3. Ventaja Competitiva
+LTI-ATS se diferencia de las soluciones genéricas del mercado por tres pilares críticos:
 
-### Deep Linking Workflow
-
-1. LMS sends a Deep Linking Request with JWT containing launch context
-2. LTI-AMJ validates the request and presents available resources
-3. User selects resources and submits selections
-4. LTI-AMJ returns selected items as a Deep Linking Response
-5. LMS creates corresponding Tool Links in the course
-
-### Grade Passback
-
-1. External tool collects assessment data
-2. LTI-AMJ receives score submission via AGS API
-3. Platform validates score against configured grading schema
-4. Score is pushed back to LMS gradebook via Line Item endpoint
-5. Student sees synchronized grade in their LMS
+1.  **Algoritmo de Matching por Competencias:** A diferencia de la búsqueda tradicional por palabras clave, nuestro sistema utiliza un motor de análisis que pondera la experiencia y las habilidades técnicas frente a los requisitos críticos del puesto, ordenando a los candidatos por idoneidad real.
+2.  **Interfaz "User-Centric" para el Negocio:** Diseñado específicamente para que los directores de otros departamentos (no expertos en RR. HH.) puedan utilizar la herramienta sin formación previa, facilitando la adopción interna.
+3.  **Analítica de Reclutamiento Predictiva:** El sistema no solo ofrece métricas históricas (tiempo de contratación, coste por posición), sino que identifica cuellos de botella en el embudo de selección y sugiere los canales de publicación más efectivos según el perfil.
+4.  **Arquitectura Abierta:** Capacidad de integración total vía API con herramientas de productividad (Slack, Microsoft Teams, Google Workspace) y sistemas de gestión de nóminas (ERP/HRIS) existentes.
 
 ---
 
-## 3. Lean Canvas
+## 4. Requerimientos Funcionales Prioritarios
+* **Módulo de Multi-posting:** Publicación en múltiples portales de empleo y redes sociales con un solo clic.
+* **Portal del Candidato:** Registro simplificado y seguimiento del estado de su candidatura.
+* **Gestión de Entrevistas:** Sincronización de calendarios y sala virtual integrada.
+* **Base de Datos Inteligente:** Etiquetado automático y búsqueda avanzada en el histórico de candidatos para futuras vacantes.
+- Riesgo: exceso de configuración al inicio, mitigación: plantillas de pipeline por tipo de vacante.
+- Riesgo: baja adopción por hiring managers, mitigación: UX muy simple para feedback y notificaciones accionables.
+- Riesgo: IA poco fiable, mitigación: siempre como recomendación explicable y nunca como decisión final automática.
+- Riesgo: datos duplicados de candidatos, mitigación: lógica fuerte de deduplicación y merge asistido.
 
-```mermaid
-flowchart LR
-    subgraph Problem
-        P1[LMS silos learning tools]
-        P2[Complex OAuth integration]
-        P3[Manual grade synchronization]
-    end
-    
-    subgraph Solution
-        S1[Unified LTI 1.3 Platform]
-        S2[Automated Grade Passback]
-        S3[Deep Linking Content Selection]
-    end
-    
-    subgraph UniqueValue
-        UV1[Single integration for all LMS]
-        UV2[Real-time analytics dashboard]
-        UV3[Compliance-first architecture]
-    end
-    
-    subgraph Metrics
-        M1[Active tool launches/day]
-        M2[Grade sync latency]
-        M3[Registration success rate]
-    end
-    
-    subgraph Channels
-        C1[1EdTech Certified Directory]
-        C2[Canvas Commons]
-        C3[Direct LMS Integration]
-    end
-    
-    subgraph Cost
-        CO1[Cloud infrastructure]
-        CO2[Security audits]
-        CO3[Partner integrations]
-    end
-    
-    subgraph Revenue
-        R1[Per-seat licensing]
-        R2[Premium analytics add-ons]
-        R3[Enterprise SLA contracts]
-    end
-```
+
+# Especificaciones Funcionales: LTI-ATS
+
+**Documento de Definición de Producto** **Responsable:** CEO LTI  
+**Alcance:** Funcionalidades Core del Sistema
 
 ---
 
-## 4. Use Cases
+## 1. Gestión de Vacantes y Multidifusión
+* **Multiposting:** Publicación simultánea en portales de empleo (LinkedIn, Indeed, portales locales) y redes sociales desde una única interfaz.
+* **Generador de Job Descriptions:** Plantillas optimizadas para SEO y cumplimiento de diversidad e inclusión.
+* **Gestión de Referidos:** Módulo interno para que los empleados recomienden candidatos, con seguimiento de bonificaciones.
 
-### Use Case 1: Instructor Tool Setup
+## 2. Motor de Cribado Inteligente (Smart Screening)
+* **CV Parsing:** Extracción de datos mediante IA para convertir currículums (PDF, Docx) en fichas de candidato estandarizadas.
+* **Ranking Automático:** Algoritmo de puntuación que clasifica a los candidatos según su ajuste con los requisitos técnicos y competencias del puesto.
+* **Cuestionarios de Filtro (Killer Questions):** Preguntas de descarte automático para agilizar la criba inicial.
 
-**Description:** An instructor configures an external tool (e.g., a coding assessment platform) within their LMS course using Deep Linking.
+## 3. Pipeline de Selección Dinámico
+* **Flujos Personalizables:** Configuración de etapas por arrastrar y soltar (Drag & Drop) adaptadas a diferentes tipos de perfiles (IT, Operaciones, Directivos).
+* **Automatización de Acciones:** Programación de cambios de estado automáticos (ej. envío de test técnico al pasar a la fase de "Evaluación").
 
-```mermaid
-sequenceDiagram
-    participant I as Instructor
-    participant LMS as Learning Management System
-    participant LTI as LTI-AMJ Platform
-    participant DB as Tool Registry
+## 4. Portal del Hiring Manager
+* **Interfaz Simplificada:** Acceso específico para los jefes de departamento para revisar candidatos preseleccionados sin necesidad de formación técnica.
+* **Scorecards de Entrevista:** Formularios de evaluación unificados para que todos los entrevistadores midan los mismos criterios, eliminando sesgos subjetivos.
+* **Sistema de Feedback:** Hilos de comentarios y menciones en la ficha del candidato para decisiones colaborativas rápidas.
 
-    I->>LMS: Opens course configuration
-    LMS->>LTI: Initiates Deep Linking Request
-    LTI->>DB: Validates tool registration
-    DB-->>LTI: Returns tool configuration
-    LTI-->>LMS: Renders content selection UI
-    I->>LTI: Selects assessment modules
-    LTI->>DB: Stores selection preferences
-    LTI-->>LMS: Deep Linking Response (Tool Links)
-    LMS->>I: Displays configured tool links
-```
+## 5. Comunicación y Experiencia del Candidato
+* **Agendación Automatizada:** Sincronización con Google Calendar y Outlook para que el candidato elija su propio hueco de entrevista según la disponibilidad del reclutador.
+* **Gestión de Plantillas:** Envío masivo de comunicaciones personalizadas para informar sobre el estado de la candidatura, evitando el "vacío de información".
+* **Portal del Candidato:** Espacio para que el postulante gestione sus datos y consulte el progreso de su proceso.
 
-### Use Case 2: Student Tool Access
+## 6. Base de Datos y Talent Nurturing
+* **Búsqueda Booleana y Semántica:** Filtros avanzados para localizar talento dentro de la base de datos histórica.
+* **Etiquetado Inteligente:** Segmentación por habilidades, ubicación y expectativas salariales para crear pools de talento "en reserva".
 
-**Description:** A student launches an external tool from within their LMS course.
+## 7. Analítica de Reclutamiento (Business Intelligence)
+* **Cuadros de Mando en Vivo:** Visualización de KPIs clave: *Time-to-hire*, *Cost-per-hire* y ratio de conversión por etapa.
+* **Informes de Origen:** Análisis de qué portales o canales aportan los candidatos de mayor calidad para optimizar la inversión en publicidad.
+* **Auditoría de Procesos:** Seguimiento de tiempos de respuesta de los reclutadores y managers para detectar cuellos de botella.
 
-```mermaid
-sequenceDiagram
-    participant S as Student
-    participant LMS as Learning Management System
-    participant LTI as LTI-AMJ Platform
-    participant Tool as External Learning Tool
+# Lean Canvas: LTI-ATS
 
-    S->>LMS: Clicks tool link in course
-    LMS->>LTI: LTI 1.3 Launch Request (id_token + state)
-    LTI->>LTI: Validate JWT signature & nonce
-    LTI->>LTI: Extract user context & roles
-    LTI->>Tool: Forward launch with user context
-    Tool-->>S: Render tool interface
-    LTI->>LMS: Optional: NRPS membership sync
-```
+**Proyecto:** LTI (Applicant Tracking System)  
+**Visión:** Optimización del ROI del talento mediante eficiencia operativa.
 
-### Use Case 3: Automatic Grading
+| **PROBLEMA** | **SOLUCIÓN** | **PROPUESTA ÚNICA DE VALOR (UVP)** | **VENTAJA ESPECIAL** | **SEGMENTOS DE CLIENTE** |
+| :--- | :--- | :--- | :--- | :--- |
+| **Pérdida de talento crítico:** Candidatos *top* que abandonan procesos por falta de agilidad. | **Ranking Predictivo:** Algoritmo que puntúa candidatos por competencias reales, no solo palabras clave. | **"Reduzca el coste de vacante abierta y recupere la agilidad operativa con el único ATS diseñado por expertos en personas."** | **HR Pedigree:** Lógica de software basada en 20 años de dirección real de RR. HH., no solo en código técnico. | **Mid-Market & Enterprise:** Empresas (200-2.000 empleados) con volumen de contratación recurrente. |
+| **Coste de vacante abierta:** Impacto financiero diario por posiciones estratégicas sin cubrir. | **Interfaz "Zero-Training":** Panel simplificado para que los jefes de área decidan en segundos. | *Para el CFO:* Reducción drástica del Time-to-Fill y gastos en agencias. | | **Empresas en Hipercrecimiento:** Startups y scaleups que necesitan escalar equipo sin burocracia. |
+| **Fricción RR. HH. - Negocio:** Herramientas complejas que los managers rechazan utilizar. | **Workflows Automatizados:** Eliminación de tareas administrativas (agendas, correos) para priorizar la evaluación. | *Para el Reclutador:* Herramienta que elimina el "trabajo basura" y facilita la colaboración. | | **Consultoras de Selección:** Firmas que necesitan un diferencial tecnológico para sus clientes. |
+| **MÉTRICAS CLAVE** | | **CANALES** | | |
+| **Time-to-Fill:** Reducción del tiempo medio de contratación. | | **Alianzas Estratégicas:** Consultoras de *Interim Management* y asociaciones de directivos de RR. HH. | | |
+| **Ratio de Adopción del Manager:** % de responsables que usan el sistema de forma autónoma. | | **Liderazgo de Pensamiento:** White papers sobre el impacto financiero de la gestión de talento. | | |
+| **Calidad de Contratación:** Tasa de permanencia del candidato tras el primer año. | | **Venta Consultiva B2B:** Prospección directa enfocada en resolver problemas operativos específicos. | | |
+| **ESTRUCTURA DE COSTES** | | **FLUJO DE INGRESOS** | | |
+| **I+D y Desarrollo:** Mantenimiento de infraestructura Cloud y evolución del algoritmo. | | **Suscripción SaaS:** Ingresos recurrentes por vacantes activas o número de licencias. | | |
+| **Customer Success:** Implementación y soporte para asegurar la adopción interna. | | **Implementation Fees:** Configuración inicial e integración con ERP/Payroll. | | |
+| **Marketing B2B:** Eventos sectoriales y contenido técnico para perfiles C-Level. | | **Módulos Premium:** Analítica avanzada, informes de diversidad y auditoría de procesos. | | |
 
-**Description:** An external tool submits assessment scores back to the LMS gradebook automatically.
+![alt text](lean-canvas.png)
 
-```mermaid
-sequenceDiagram
-    participant S as Student
-    participant Tool as External Learning Tool
-    participant LTI as LTI-AMJ Platform
-    participant LMS as Learning Management System
+# Especificaciones Técnicas: Casos de Uso LTI-ATS
 
-    S->>Tool: Completes assessment
-    Tool->>LTI: Score submission request
-    LTI->>LTI: Validate scoring permissions
-    LTI->>LTI: Transform to AGS format
-    LTI->>LMS: POST to Line Item /scores
-    LMS->>LMS: Update gradebook
-    LMS-->>LTI: Score submission confirmation
-    LTI-->>Tool: Acknowledgment
-    S->>LMS: Views grade in gradebook
-```
+**Documento de Producto** | **Versión:** 1.0  
+**Autor:** Senior Technical Product Manager  
+**Estado:** Para Revisión de Ingeniería
 
 ---
 
-## 5. Data Model
+## UC1: Cribado Inteligente e Identificación de Candidatos Top
+**Objetivo:** Automatizar la priorización de talento utilizando el algoritmo de "HR Pedigree".
 
-### Entities
-
-| Entity | Attributes | Type | Constraints |
-|--------|------------|------|-------------|
-| **User** | id, lms_user_id, email, name, given_name, family_name, roles | UUID, String, String, String, String, String, String[] | PK, Unique per LMS |
-| **Context** | id, lms_context_id, title, type, lms_id | UUID, String, String, String, UUID | PK, FK to LMS |
-| **Tool** | id, client_id, deployment_id, name, description, public_key, jwks_url, initiator_oidc_url, target_link_uri | UUID, String, String, String, Text, String, String, String, String | PK, Unique (client_id + deployment_id) |
-| **ResourceLink** | id, tool_id, context_id, resource_link_id, title, url, custom_params | UUID, UUID, UUID, String, String, String, JSON | PK, FK to Tool, Context |
-| **Score** | id, resource_link_id, user_id, score_given, score_maximum, activity_progress, grading_progress, comment, timestamp, is_final | UUID, UUID, UUID, Decimal, Decimal, String, String, String, DateTime, Boolean | PK, FK to ResourceLink, User |
-| **LineItem** | id, tool_id, context_id, line_item_id, label, score_maximum, resource_id, tag | UUID, UUID, UUID, String, String, Decimal, String, String | PK, FK to Tool, Context |
-| **Membership** | id, context_id, user_id, status, roles | UUID, UUID, UUID, String, String[] | PK, FK to Context, User |
-
-### Relationships
-
-```mermaid
-erDiagram
-    Tool ||--o{ ResourceLink : "provides"
-    Tool ||--o{ LineItem : "creates"
-    Context ||--o{ ResourceLink : "contains"
-    Context ||--o{ LineItem : "has"
-    Context ||--o{ Membership : "includes"
-    User ||--o{ Membership : "belongs to"
-    User ||--o{ Score : "receives"
-    ResourceLink ||--o{ Score : "generates"
-```
-
----
-
-## 6. High-Level System Design
-
-### Architectural Approach
-
-LTI-AMJ follows a **cloud-native microservices architecture** designed for horizontal scalability and high availability.
-
-| Characteristic | Implementation |
-|----------------|-----------------|
-| Deployment | Kubernetes on AWS/GCP |
-| Communication | REST APIs with async message queues |
-| Database | PostgreSQL (relational), Redis (caching) |
-| Authentication | OAuth2/OIDC with JWT |
-| Observability | Prometheus, Grafana, ELK Stack |
-
-### C1 System Context Diagram
+* **Actores:** * **Primario:** Reclutador.
+    * **Secundarios:** Motor de IA (Parser & Scorer), Repositorio de Perfiles.
+* **Precondiciones:** La vacante debe tener definidos los criterios de éxito (competencias técnicas y soft skills).
+* **Gatillo:** Finalización de una inscripción o importación masiva de perfiles desde fuentes externas.
+* **Flujo Básico de Eventos:**
+    1. El sistema ingesta el currículum y lo procesa mediante el **Parser de IA**.
+    2. El motor de scoring cruza los datos extraídos con el modelo de **Ranking Predictivo** de LTI.
+    3. El sistema asigna un índice de compatibilidad dinámica basado en el historial de éxito del puesto.
+    4. El Reclutador accede a la vista de "Candidatos Sugeridos".
+    5. El Reclutador valida el ranking y mueve a los perfiles "Top" a la siguiente fase con un clic.
+* **Valor para el Negocio:** Impacto directo en el **Time-to-Fill**. Reduce el ruido de perfiles no aptos y asegura que el esfuerzo humano se centre en candidatos con alta probabilidad de contratación.
+* **Instrucciones para el Diagrama:** Se recomienda un **Diagrama de Actividad (BPMN)**.
+    * **Swimlanes:** Candidato, Backend LTI, Motor de IA, Reclutador.
+    * **Foco:** Visualizar la lógica de decisión del motor de scoring antes de que el perfil llegue a la bandeja del reclutador.
 
 ```mermaid
 graph TD
-    subgraph External_Systems
-        LMS[("LMS\nCanvas/Moodle/Blackboard")]
-        ExternalTool[("External Learning\nTool")]
-        JWKS[("JWKS Provider")]
-    end
-
-    subgraph LTI_AMJ_Platform
-        API_GW[("API Gateway")]
-        Auth_Module[("Authentication\nService")]
-        Launch_Service[("Launch\nService")]
-        AGS_Service[("Grade Passback\nService")]
-        NRPS_Service[("Membership\nSync Service")]
-        DL_Service[("Deep Linking\nService")]
-        Tool_Registry[("Tool Registry\nService")]
-        Analytics[("Analytics\nService")]
-    end
-
-    subgraph Data_Layer
-        DB[(PostgreSQL)]
-        Cache[(Redis)]
-        Audit[("Audit Log")]
-    end
-
-    LMS -->|LTI 1.3 Launch| API_GW
-    ExternalTool -->|Score Submission| API_GW
-    API_GW --> Auth_Module
-    Auth_Module -->|Verify JWT| JWKS
-    Auth_Module -->|Launch Request| Launch_Service
-    Launch_Service -->|Forward| ExternalTool
-    ExternalTool -->|AGS Score| AGS_Service
-    AGS_Service -->|Sync Grade| LMS
-    LMS -->|NRPS Request| NRPS_Service
-    LMS -->|Deep Link Request| DL_Service
-    Launch_Service --> Tool_Registry
-    Tool_Registry --> DB
-    AGS_Service --> DB
-    AllServices --> Cache
-    AllServices --> Audit
+    A[Candidato: Sube CV] --> B{Sistema: Parser IA}
+    B -->|Extraer Datos| C[Motor de Scoring]
+    C -->|Aplicar Lógica LTI| D{¿Cumple Perfil?}
+    D -->|Si| E[Asignar Puntuación Alta]
+    D -->|No| F[Asignar Puntuación Baja]
+    E --> G[Dashboard: Top Candidates]
+    F --> H[Dashboard: Otros]
+    G --> I[Reclutador: Valida Selección]
 ```
 
 ---
 
-## 7. C4 Diagram - Component Level
+## UC2: Colaboración Ágil del Hiring Manager (Interfaz Lite)
+**Objetivo:** Eliminar la fricción burocrática mediante un portal de decisión ultra-rápido.
 
-### LTI Provider Service (Authentication Module)
-
-This component is the "heart" of LTI security, handling OAuth2/OIDC flow, JWT validation, and launch request processing.
+* **Actores:** * **Primario:** Hiring Manager (Responsable del Departamento).
+    * **Secundario:** Reclutador.
+* **Precondiciones:** El Reclutador ha preseleccionado candidatos y los ha enviado a revisión.
+* **Gatillo:** El sistema envía un "Action Link" (enlace securizado de un solo uso) al correo o canal de comunicación del Manager.
+* **Flujo Básico de Eventos:**
+    1. El Manager hace clic en el enlace y accede a la **Interfaz Zero-Training** (sin login).
+    2. El Manager visualiza una ficha simplificada con: Resumen IA, Puntos Fuertes y Expectativas Salariales.
+    3. El Manager ejecuta una acción: "Aprobar para Entrevista", "Descartar" o "Solicitar más info".
+    4. El sistema captura el feedback en texto o voz y lo asocia a la ficha.
+    5. El sistema notifica al Reclutador la decisión y actualiza el estado del pipeline.
+* **Valor para el Negocio:** Incrementa el **Ratio de Adopción del Manager**. Evita el estancamiento de procesos por falta de feedback y descentraliza la selección de forma eficiente.
+* **Instrucciones para el Diagrama:** Se recomienda un **Diagrama de Secuencia (UML)**.
+    * **Objetos:** Reclutador, API LTI, Servicio de Notificaciones, Portal del Manager.
+    * **Foco:** Mostrar el flujo asíncrono desde que el reclutador envía el perfil hasta que el manager devuelve la decisión.
 
 ```mermaid
-graph TB
-    subgraph LTI_AMJ_Platform
-        subgraph Auth_Module["LTI Provider Service - Authentication Module"]
-            direction TB
-            OIDC_Handler["OIDC Handler"]
-            JWT_Validator["JWT Validator"]
-            Nonce_Manager["Nonce Manager"]
-            Signature_Verifier["Signature Verifier"]
-            Claim_Extractor["Claim Extractor"]
-            Launch_Controller["Launch Controller"]
-            Security_Config["Security Config"]
-        end
-        
-        subgraph External
-            LMS[("LMS")]
-            JWKS[("JWKS Provider")]
-        end
-        
-        subgraph Data
-            ToolRegistry[("Tool Registry")]
-            SessionStore[("Session Store")]
-        end
-    end
+sequenceDiagram
+    participant R as Reclutador
+    participant S as Sistema ATS
+    participant M as Hiring Manager
 
-    LMS -->|1. OIDC Login Init| OIDC_Handler
-    OIDC_Handler -->|2. Validate Client ID| ToolRegistry
-    ToolRegistry -->|3. Return Tool Config| OIDC_Handler
-    OIDC_Handler -->|4. Redirect to Authorize| LMS
-    LMS -->|5. POST id_token| JWT_Validator
-    JWT_Validator -->|6. Fetch JWKS| JWKS
-    JWKS -->|7. Return Keys| JWT_Validator
-    JWT_Validator -->|8. Verify Signature| Signature_Verifier
-    Signature_Verifier -->|9. Check Nonce| Nonce_Manager
-    Nonce_Manager -->|10. Store Nonce| SessionStore
-    Signature_Verifier -->|11. Extract Claims| Claim_Extractor
-    Claim_Extractor -->|12. Validate Claims| Security_Config
-    Security_Config -->|13. Create Session| Launch_Controller
-    Launch_Controller -->|14. Forward to Tool| LMS
+    R->>S: Mover candidato a "Revisión Manager"
+    S->>M: Envía Action Link (Email/Slack)
+    Note over M: Acceso sin Login (Tokenizado)
+    M->>S: Abre Ficha Simplificada
+    M->>S: Ejecuta Acción (Aprobar/Rechazar)
+    S-->>R: Notificación de Decisión Actualizada
+    S-->>S: Actualiza Estado en Pipeline
 ```
 
-### Component Responsibilities
+---
 
-| Component | Responsibility |
-|-----------|---------------|
-| OIDC Handler | Processes OIDC login initiation, validates client registration, generates authorization redirect |
-| JWT Validator | Validates JWT structure, expiry, issuer, audience |
-| Signature Verifier | Verifies JWT signature against JWKS from LMS |
-| Nonce Manager | Manages one-time use nonces to prevent replay attacks |
-| Claim Extractor | Extracts user identity, context, roles, and resource link from LTI claims |
-| Launch Controller | Creates session, generates launch response, redirects to tool |
-| Security Config | Enforces security policies (allowed domains, required scopes) |
+## UC3: Automatización del Pipeline y Agendación
+**Objetivo:** Optimizar la logística de entrevistas sin intervención manual.
+
+* **Actores:** * **Primario:** Candidato.
+    * **Secundarios:** API de Calendario (Google/Outlook), Reclutador/Entrevistador.
+* **Precondiciones:** El candidato ha sido aprobado por el Manager en el UC2.
+* **Gatillo:** Cambio automático de estado a "Programación de Entrevista".
+* **Flujo Básico de Eventos:**
+    1. El sistema consulta la disponibilidad en tiempo real del calendario del entrevistador.
+    2. El sistema envía un portal de agendación dinámico al Candidato.
+    3. El Candidato elige el hueco que mejor le convenga entre las opciones disponibles.
+    4. El sistema reserva el espacio, genera el enlace de videollamada y envía las invitaciones a ambas partes.
+    5. El sistema actualiza el registro de actividad para que el Reclutador supervise el proceso sin intervenir.
+* **Valor para el Negocio:** Mejora la **Marca Empleadora** y reduce horas de trabajo administrativo. La velocidad de respuesta evita que los candidatos acepten ofertas de la competencia.
+* **Instrucciones para el Diagrama:** Se recomienda un **Diagrama de Flujo de Datos / Secuencia**.
+    * **Componentes:** Candidato, Frontend LTI, Módulo de Calendario, APIs Externas (Google/Microsoft).
+    * **Foco:** Representar la sincronización bidireccional de calendarios para evitar duplicidad de citas (overbooking).
+
+```mermaid
+flowchart LR
+    subgraph LTI_System [Sistema LTI]
+    direction TB
+        A[Disparador: Candidato Aprobado] --> B[Consultar Disponibilidad API]
+        B --> C[Generar Enlace Dinámico]
+    end
+
+    C --> D[Candidato: Selecciona Hueco]
+    
+    subgraph External_APIs [APIs Externas]
+    direction TB
+        E[Google Calendar]
+        F[Outlook Calendar]
+    end
+
+    D --> G{Confirmar Reserva}
+    G --> E
+    G --> F
+    G --> H[Notificar a Reclutador y Candidato]
+```
+
+![alt text](casos-uso.png)
+
+# Data Model: LTI-ATS (HR-Tech SaaS)
+
+**Versión:** 1.0  
+**Arquitecto:** Senior Data Architect  
+**Enfoque:** Multi-tenancy, GDPR Compliance y Escalabilidad para IA.
 
 ---
 
-## 8. Compliance & Standards
+## 1. Tablas de Identidad y Estructura (Multi-tenant)
 
-LTI-AMJ is designed for full compliance with:
+### Tabla: `companies`
+Entidad raíz para el aislamiento de datos.
+| Atributo | Tipo | Descripción | PII / Seguridad |
+| :--- | :--- | :--- | :--- |
+| `id` | `UUID` (PK) | Identificador único del cliente B2B. | No |
+| `name` | `VARCHAR(255)` | Nombre de la empresa. | No |
+| `subscription_plan` | `VARCHAR(50)` | Nivel de servicio (SaaS tier). | No |
+| `created_at` | `TIMESTAMP` | Fecha de alta en el sistema. | No |
 
-- **LTI 1.3 / LTI Advantage** (1EdTech)
-- **OAuth 2.0** (RFC 6749)
-- **OpenID Connect Core** (RFC 8252)
-- **JWT** (RFC 7519)
-- **IMS Global Security Best Practices**
+### Tabla: `users`
+Personal interno de la empresa (Recruiters y Hiring Managers).
+| Atributo | Tipo | Descripción | PII / Seguridad |
+| :--- | :--- | :--- | :--- |
+| `id` | `UUID` (PK) | Identificador del usuario. | No |
+| `company_id` | `UUID` (FK) | Relación con `companies`. | No |
+| `full_name` | `VARCHAR(255)` | Nombre del empleado. | **Sí** |
+| `email` | `VARCHAR(255)` | Email corporativo (Unique). | **Sí (Cifrado)** |
+| `role` | `ENUM` | RECRUITER, HIRING_MANAGER, ADMIN. | No |
+| `is_active` | `BOOLEAN` | Estado del acceso. | No |
 
 ---
 
-*Document Version: 1.0 | Architecture by Senior Software Architect*
+## 2. Tablas de Reclutamiento y Lógica de IA
+
+### Tabla: `job_postings`
+Definición de las vacantes abiertas.
+| Atributo | Tipo | Descripción | PII / Seguridad |
+| :--- | :--- | :--- | :--- |
+| `id` | `UUID` (PK) | Identificador de la vacante. | No |
+| `company_id` | `UUID` (FK) | Relación con `companies`. | No |
+| `hiring_manager_id`| `UUID` (FK) | Responsable del área (de tabla `users`). | No |
+| `title` | `VARCHAR(255)` | Título de la posición. | No |
+| `description` | `TEXT` | Descripción del puesto. | No |
+| `ranking_criteria` | `JSONB` | **IA:** Pesos y keywords para el matching. | No |
+| `status` | `ENUM` | DRAFT, OPEN, CLOSED. | No |
+
+### Tabla: `candidates`
+Maestro de talento (Pool de candidatos).
+| Atributo | Tipo | Descripción | PII / Seguridad |
+| :--- | :--- | :--- | :--- |
+| `id` | `UUID` (PK) | Identificador del candidato. | No |
+| `full_name` | `VARCHAR(255)` | Nombre completo. | **Sí** |
+| `email` | `VARCHAR(255)` | Email personal (Unique). | **Sí (Cifrado)** |
+| `phone` | `VARCHAR(20)` | Teléfono de contacto. | **Sí (Cifrado)** |
+| `resume_url` | `VARCHAR(512)` | Ruta al archivo en S3/Storage. | No |
+| `parsed_data` | `JSONB` | **IA:** Skills y experiencia extraídos. | No |
+
+### Tabla: `applications`
+Intersección entre Candidato y Vacante. El núcleo del ATS.
+| Atributo | Tipo | Descripción | PII / Seguridad |
+| :--- | :--- | :--- | :--- |
+| `id` | `UUID` (PK) | Identificador de la candidatura. | No |
+| `job_id` | `UUID` (FK) | Relación con `job_postings`. | No |
+| `candidate_id` | `UUID` (FK) | Relación con `candidates`. | No |
+| `current_stage` | `VARCHAR(50)` | Etapa (Screening, Interview, etc.). | No |
+| `ai_score` | `DECIMAL(5,2)` | **IA:** Puntuación de Ranking (0-100). | No |
+| `applied_at` | `TIMESTAMP` | Fecha de postulación. | No |
+
+---
+
+## 3. Evaluación y Feedback
+
+### Tabla: `interviews`
+Gestión de eventos de agenda.
+| Atributo | Tipo | Descripción | PII / Seguridad |
+| :--- | :--- | :--- | :--- |
+| `id` | `UUID` (PK) | Identificador de la cita. | No |
+| `application_id` | `UUID` (FK) | Relación con `applications`. | No |
+| `interviewer_id` | `UUID` (FK) | Usuario que entrevista. | No |
+| `start_time` | `TIMESTAMP` | Fecha y hora de inicio. | No |
+| `meeting_url` | `VARCHAR(512)` | Link de Zoom/Teams/Meet. | No |
+
+### Tabla: `feedbacks`
+Evaluaciones del Hiring Manager.
+| Atributo | Tipo | Descripción | PII / Seguridad |
+| :--- | :--- | :--- | :--- |
+| `id` | `UUID` (PK) | Identificador del feedback. | No |
+| `interview_id` | `UUID` (FK) | Relación con `interviews`. | No |
+| `score` | `INTEGER` | Calificación numérica (1-5). | No |
+| `comments` | `TEXT` | Observaciones detalladas. | No |
+| `recommendation` | `ENUM` | HIRE, NO_HIRE, STRONG_HIRE. | No |
+
+---
+
+## 4. Relaciones (Cardinalidad)
+
+1.  **Companies -> Users / Job_Postings:** 1:N (Una empresa tiene muchos usuarios y vacantes).
+2.  **Job_Postings -> Applications:** 1:N (Una vacante recibe muchas candidaturas).
+3.  **Candidates -> Applications:** 1:N (Un candidato puede aplicar a varias vacantes).
+4.  **Applications -> Interviews:** 1:N (Una candidatura puede tener varias rondas de entrevistas).
+5.  **Interviews -> Feedbacks:** 1:1 (Por cada entrevistador en una sesión, hay un feedback).
+6.  **Users (Manager) -> Job_Postings:** 1:N (Un manager es responsable de múltiples vacantes).
+
+# Diseño de Alto Nivel (HLD): LTI-ATS
+
+**Documento de Arquitectura** **Versión:** 1.0 (Abril 2026)  
+**Arquitecto:** Senior Cloud Solutions Architect  
+**Estatus:** Especificación para Desarrollo
+
+---
+
+## 1. Arquitectura General: Microservicios Event-Driven
+Se ha seleccionado una **arquitectura de microservicios orientada a eventos** para garantizar la escalabilidad masiva y el aislamiento de fallos.
+
+* **Justificación:** El procesamiento de CVs y el cálculo de rankings son tareas de alta latencia. Separar estas funciones de la lógica de negocio (Core) permite que la aplicación principal permanezca reactiva. La comunicación asíncrona mediante un bus de eventos evita que los picos de tráfico en las inscripciones de candidatos afecten la experiencia del reclutador o el manager.
+
+## 2. Componentes Core
+
+### A. Capa de Presentación y Borde
+* **Frontend:** Single Page Application (SPA) construida en React, distribuida globalmente mediante una **CDN** (CloudFront o Akamai) para reducir la latencia.
+* **WAF & API Gateway:** El **Web Application Firewall** mitiga ataques (DDoS, SQLi). El **API Gateway** gestiona la autenticación, el enrutamiento y el control de tráfico (*Throttling*).
+
+### B. Capa de Aplicación (Microservicios)
+* **Core Service (Go/Node.js):** Gestiona la lógica transaccional de vacantes, usuarios y permisos.
+* **Notification Service:** Sistema asíncrono para alertas vía Email/SMS/Slack.
+* **Integration Service:** Orquestador de conexiones externas para calendarios y portales de empleo.
+
+### C. Capa de Datos
+* **Base de Datos Principal:** PostgreSQL con esquema *Multi-tenant* (Aislamiento por `company_id`).
+* **Storage:** S3 (u Object Storage equivalente) para el almacenamiento seguro de archivos binarios (CVs).
+* **Cache:** Redis para la gestión de sesiones y almacenamiento temporal de resultados de ranking frecuentes.
+
+## 3. Módulo de IA: Ranking Predictivo
+El motor de IA está desacoplado del flujo síncrono mediante un patrón de **Productor-Consumidor**:
+
+1.  El **Core Service** publica un evento en una cola (**AWS SQS / RabbitMQ**).
+2.  El **AI Worker (Python/TensorFlow)** consume el evento y realiza el *Parsing* y el *Scoring*.
+3.  El resultado se persiste en la base de datos y se notifica al usuario final mediante **WebSockets**.
+
+## 4. Integraciones Externas
+* **Calendarios (OAuth2.0):** Sincronización bidireccional con Google/Outlook sin persistencia de credenciales locales.
+* **Job Boards:** Webhooks de entrada para capturar candidaturas de forma estandarizada.
+
+## 5. Seguridad y Escalabilidad
+* **Escalabilidad Horizontal:** Todos los servicios corren en contenedores (Docker/K8s) con políticas de **Auto-scaling** basadas en CPU y profundidad de colas.
+* **Seguridad:** Cifrado de datos PII en reposo (AES-256) y en tránsito (TLS 1.3). Aislamiento lógico estricto para asegurar el entorno *multitenant*.
+
+---
+
+## 6. Diagrama de Arquitectura de Alto Nivel
+
+```mermaid
+graph LR
+    subgraph Client_Layer [Capa de Cliente]
+        User((Usuario))
+        Web[React SPA]
+    end
+
+    subgraph Edge_Infrastructure [Infraestructura de Borde]
+        CDN[CDN & WAF]
+        LB[Load Balancer]
+        GW[API Gateway]
+    end
+
+    subgraph Service_Mesh [Microservicios]
+        Core[Core App Service]
+        Auth[Auth Service / Cognito]
+        IntSvc[Integration Service]
+        AISvc[AI Worker Service - Python]
+    end
+
+    subgraph Event_Bus [Mensajería Asíncrona]
+        Queue[Message Queue - SQS/RMQ]
+    end
+
+    subgraph Data_Persistence [Capa de Persistencia]
+        DB[(PostgreSQL)]
+        S3[Object Storage - CVs]
+        Redis[(Redis Cache)]
+    end
+
+    subgraph External_Systems [Sistemas Externos]
+        Calendars[Google/Outlook API]
+        Jobs[Indeed/LinkedIn API]
+    end
+
+    %% Conexiones
+    User --> Web
+    Web --> CDN
+    CDN --> LB
+    LB --> GW
+    GW --> Auth
+    GW --> Core
+    
+    Core --> DB
+    Core --> S3
+    Core --> Queue
+    Core --> IntSvc
+    
+    Queue --> AISvc
+    AISvc --> DB
+    AISvc --> Redis
+    
+    IntSvc --> Calendars
+    Jobs --> GW
+```
+
+![alt text](alto-nivel.png)
+
+# Modelo C4: Capa de Persistencia (LTI-ATS)
+
+Como **Principal Data Architect**, he diseñado la infraestructura de datos para LTI-ATS. Este diseño prioriza el aislamiento multitenant, la eficiencia en costes al separar almacenamiento transaccional de archivos pesados, y el cumplimiento estricto de la GDPR mediante políticas de cifrado en reposo.
+
+---
+
+## 1. Nivel 2: Contenedores de Datos (Persistencia)
+
+Para soportar la alta concurrencia y los procesos asíncronos de la IA, la capa de datos se ha descentralizado en cuatro contenedores especializados:
+
+| Contenedor | Tecnología Sugerida | Descripción y Función | Seguridad (Cifrado en Reposo) |
+| :--- | :--- | :--- | :--- |
+| **Base de Datos Transaccional** | **PostgreSQL** | Motor relacional central. Almacena toda la lógica de negocio, configuración de tenants y metadatos de reclutamiento. | **TDE (Transparent Data Encryption)** con algoritmos AES-256. |
+| **Almacén de Objetos** | **AWS S3** | Repositorio de almacenamiento inmutable y de bajo coste para archivos binarios pesados (CVs en PDF/Docx). | **SSE-S3** (Server-Side Encryption) gestionado por el proveedor. |
+| **Caché Distribuida** | **Redis** | Almacenamiento clave-valor en memoria. Gestiona sesiones web y provee acceso de ultrabaja latencia a los rankings de IA. | Cifrado a nivel de disco (para persistencia AOF/RDB) y TLS en tránsito. |
+| **Bus de Mensajes** | **RabbitMQ** | Actúa como contenedor de estado temporal. Encola los eventos (ej. `CV_UPLOADED`) para que la IA los procese a su propio ritmo. | Volúmenes de bloque (EBS) cifrados donde residen las colas persistentes. |
+
+---
+
+## 2. Diagrama de Contenedores (Nivel 2)
+
+```mermaid
+graph TD
+    %% Definición de Actores / Servicios
+    subgraph Capa_Logica [Capa de Lógica de Aplicación]
+        Core[Servicio Core]
+        IA[Motor IA]
+    end
+
+    %% Definición de Contenedores de Datos
+    subgraph Capa_Datos [Capa de Persistencia]
+        DB[(PostgreSQL)]
+        S3[Almacén S3]
+        Queue[[RabbitMQ]]
+        Redis[(Redis)]
+    end
+
+    %% Flujos de Datos Transaccionales
+    Core -->|1. Lectura/Escritura (SQL)| DB
+    Core -->|2. Sube Documentos (HTTPS)| S3
+    Core -->|3. Publica Evento (AMQP)| Queue
+    Core -->|4. Lee/Escribe Sesiones (RESP)| Redis
+
+    %% Flujos de Datos de IA
+    Queue -->|5. Consume Evento| IA
+    IA -->|6. Descarga Documento| S3
+    IA -->|7. Persiste Metadatos| DB
+    IA -->|8. Actualiza Score| Redis
+```
+
+---
+
+## 3. Nivel 3: Componentes de Datos (Esquemas PostgreSQL)
+
+Para evitar cuellos de botella y garantizar la integridad referencial (3NF) y la seguridad de los datos sensibles (PII), la base de datos **PostgreSQL** se divide lógicamente en tres esquemas principales:
+
+* **`tenant_data` (Aislamiento y Configuración):**
+    * **Tablas:** `empresas`, `suscripciones`, `roles_globales`.
+    * **Propósito:** Contiene la información maestra de los clientes. Actúa como barrera de seguridad: ninguna consulta transaccional puede ejecutarse sin un `tenant_id` validado contra este esquema.
+* **`core_recruiting` (Núcleo de Negocio):**
+    * **Tablas:** `vacantes`, `candidatos`, `aplicaciones`, `entrevistas`.
+    * **Propósito:** Mantiene el estado en tiempo real del pipeline de contratación. Los campos PII (Nombre, Email, Teléfono) se someten a *Application-Level Encryption* antes de insertarse aquí.
+* **`ia_results` (Analítica y Machine Learning):**
+    * **Tablas:** `parsed_resumes` (JSONB), `predictive_scores`, `skill_vectors`.
+    * **Propósito:** Almacena de forma estructurada y semi-estructurada la salida del motor de IA. Aislar estos datos evita que las pesadas operaciones de escritura de la IA bloqueen las tablas de lectura de los reclutadores.
+
+---
+
+## 4. Flujos de Datos (Data Flow)
+
+El ecosistema se mantiene sincronizado mediante un patrón de **coreografía basada en eventos**:
+
+1.  **Ingesta Segura:** Cuando el Frontend envía una postulación, el *Servicio Core* inserta los datos estructurados en `core_recruiting` (PostgreSQL) y sube el archivo físico a *S3*.
+2.  **Delegación Asíncrona:** Inmediatamente, el *Servicio Core* despacha un mensaje a *RabbitMQ* con el ID de la aplicación y la ruta del CV en S3.
+3.  **Procesamiento IA:** El *Motor IA* captura el mensaje de *RabbitMQ*, descarga el CV de *S3* de forma segura, y ejecuta el "CV Parsing" y el cálculo predictivo.
+4.  **Consolidación:** El *Motor IA* escribe los resultados detallados en el esquema `ia_results` de *PostgreSQL*.
+5.  **Sincronización de Caché:** En la misma transacción de éxito, el *Motor IA* actualiza el ranking en *Redis*. Esto garantiza que cuando el *Hiring Manager* acceda a su portal, lea la puntuación instantáneamente desde la memoria (Redis).
